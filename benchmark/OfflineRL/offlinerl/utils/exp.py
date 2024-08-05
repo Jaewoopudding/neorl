@@ -19,15 +19,13 @@ def setup_seed(seed=1024):
 def select_free_cuda():
     # get available CUDA devices, and store it to a tmp file
     tmp_name = str(uuid.uuid1()).replace("-","")
-    os.system('nvidia-smi -q -d Memory |grep -A4 GPU|grep Free >'+tmp_name)
+    os.system('nvidia-smi -q -d Memory |grep -A6 GPU|grep Free >'+tmp_name)
     memory_gpu = [int(x.split()[2]) for x in open(tmp_name, 'r').readlines()]
     os.system('rm '+tmp_name)  # remove tmp file
-    
     return np.argmax(memory_gpu)
 
 def set_free_device_fn():
     device = 'cuda'+":"+str(select_free_cuda()) if torch.cuda.is_available() else 'cpu'
-
     return device
 
 

@@ -4,6 +4,7 @@ from offlinerl.utils.exp import select_free_cuda
 task = "Hopper-v3"
 task_data_type = "low"
 task_train_num = 99
+gta_path = 'None'
 
 seed = 42
 
